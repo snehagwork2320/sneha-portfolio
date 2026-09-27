@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Terminal, X, Maximize2, Minimize2, Sparkles, Send, Trash2 } from 'lucide-react';
+import { Terminal, X, Maximize2, Minimize2, Send, Trash2 } from 'lucide-react';
 import { soundFx } from '../../utils/audio';
 import confetti from 'canvas-confetti';
 import { PROJECTS, PERSONAL_INFO } from '../../data/portfolioData';
@@ -26,7 +26,6 @@ export const InteractiveTerminal: React.FC<InteractiveTerminalProps> = ({
   const [inputVal, setInputVal] = useState<string>('');
   const [history, setHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState<number>(-1);
-  const [isInferring, setIsInferring] = useState<boolean>(false);
 
   const [logs, setLogs] = useState<CommandLog[]>([
     {
@@ -35,10 +34,10 @@ export const InteractiveTerminal: React.FC<InteractiveTerminalProps> = ({
       content: (
         <div className="space-y-1 text-xs">
           <div className="text-brand-electric font-bold">
-            TusharOS Interactive Neural Terminal v2.6.4 [x86_64-tcet-kernel]
+            SnehaOS Developer Terminal v2.6.4 [Full-Stack ECS Kernel]
           </div>
           <div className="text-editorial-dim">
-            Type <span className="text-emerald-400 font-bold">'help'</span> for command roster or try <span className="text-amber-300 font-bold">'sudo hire'</span>, <span className="text-cyan-400 font-bold">'ai-infer &lt;prompt&gt;'</span>, <span className="text-violet-400 font-bold">'projects'</span>.
+            Type <span className="text-emerald-400 font-bold">'help'</span> for commands or try <span className="text-amber-300 font-bold">'sudo hire'</span>, <span className="text-cyan-400 font-bold">'projects'</span>, <span className="text-violet-400 font-bold">'skills'</span>.
           </div>
         </div>
       ),
@@ -85,14 +84,12 @@ export const InteractiveTerminal: React.FC<InteractiveTerminalProps> = ({
               <div className="text-brand-electric font-bold">AVAILABLE COMMANDS:</div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-[11px] pt-1">
                 <div><span className="text-emerald-400 font-bold">help</span> — Display command manual</div>
-                <div><span className="text-emerald-400 font-bold">projects</span> — List all 16 systems & case studies</div>
-                <div><span className="text-emerald-400 font-bold">open &lt;num&gt;</span> — Launch project modal (e.g. 'open 1')</div>
-                <div><span className="text-emerald-400 font-bold">skills</span> — Display technical capability taxonomy</div>
-                <div><span className="text-emerald-400 font-bold">ai-infer &lt;msg&gt;</span> — Stream local LLM inference simulation</div>
-                <div><span className="text-emerald-400 font-bold">drone-hud</span> — Inspect real-time aerospace telemetry</div>
-                <div><span className="text-emerald-400 font-bold">sudo hire</span> — Initiate collaboration + confetti burst</div>
+                <div><span className="text-emerald-400 font-bold">projects</span> — List all featured projects</div>
+                <div><span className="text-emerald-400 font-bold">open &lt;num&gt;</span> — Launch project details (e.g. 'open 1')</div>
+                <div><span className="text-emerald-400 font-bold">skills</span> — Display technical skills taxonomy</div>
+                <div><span className="text-emerald-400 font-bold">sudo hire</span> — Initiate contact + confetti burst</div>
                 <div><span className="text-emerald-400 font-bold">theme</span> — Toggle Light / Dark UI mode</div>
-                <div><span className="text-emerald-400 font-bold">nav &lt;sec&gt;</span> — Jump to section (work, research, skills)</div>
+                <div><span className="text-emerald-400 font-bold">nav &lt;sec&gt;</span> — Jump to section (work, skills, about, contact)</div>
                 <div><span className="text-emerald-400 font-bold">clear</span> — Wipe terminal logs</div>
               </div>
             </div>
@@ -107,7 +104,7 @@ export const InteractiveTerminal: React.FC<InteractiveTerminalProps> = ({
           type: 'output',
           content: (
             <div className="space-y-1.5 text-xs font-mono">
-              <div className="text-brand-electric font-bold">16 VERIFIED SYSTEMS:</div>
+              <div className="text-brand-electric font-bold">FEATURED PROJECTS:</div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 text-[11px]">
                 {PROJECTS.map((p, i) => (
                   <div key={p.id} className="flex items-center gap-1.5">
@@ -118,7 +115,7 @@ export const InteractiveTerminal: React.FC<InteractiveTerminalProps> = ({
                 ))}
               </div>
               <div className="text-[10px] text-editorial-dim pt-1">
-                Type <span className="text-amber-300 font-bold">'open 1'</span> to inspect GyaanSetu AI or <span className="text-amber-300 font-bold">'open 2'</span> for DevOps-AI.
+                Type <span className="text-amber-300 font-bold">'open 1'</span> to inspect CRM Platform or <span className="text-amber-300 font-bold">'open 2'</span> for AI Email Assistant.
               </div>
             </div>
           ),
@@ -133,7 +130,7 @@ export const InteractiveTerminal: React.FC<InteractiveTerminalProps> = ({
           newLogs.push({
             id: `${newLogId}-out`,
             type: 'success',
-            content: `Launching 9-step case study for [${proj.number}] ${proj.title}...`,
+            content: `Launching case study for [${proj.number}] ${proj.title}...`,
           });
         } else {
           newLogs.push({
@@ -153,10 +150,12 @@ export const InteractiveTerminal: React.FC<InteractiveTerminalProps> = ({
             <div className="space-y-2 text-xs font-mono">
               <div className="text-brand-electric font-bold">TECHNICAL TAXONOMY:</div>
               <div className="text-[11px] space-y-1 text-editorial-text">
-                <div><span className="text-emerald-400 font-bold">[LANGUAGES]</span> Python, TypeScript, JavaScript, C++, C, Java, SQL</div>
-                <div><span className="text-cyan-400 font-bold">[AI & ML]</span> PyTorch, Ollama, YOLOv8, LangChain, OpenCV, Whisper, PaddleOCR</div>
-                <div><span className="text-violet-400 font-bold">[WEB & CLOUD]</span> React, Next.js, FastAPI, Node.js, Docker, Redis, PostgreSQL</div>
-                <div><span className="text-amber-400 font-bold">[ARCH]</span> Microservices, WebRTC, WebSocket Streams, RAG Vector Stores</div>
+                <div><span className="text-emerald-400 font-bold">[LANGUAGES]</span> C, C++, JavaScript, TypeScript, HTML5, CSS3</div>
+                <div><span className="text-cyan-400 font-bold">[FRONTEND]</span> React.js, TypeScript, Responsive CSS</div>
+                <div><span className="text-violet-400 font-bold">[BACKEND]</span> Node.js, Express.js, REST APIs, JWT Auth</div>
+                <div><span className="text-amber-400 font-bold">[DATABASES]</span> MongoDB, Supabase (PostgreSQL)</div>
+                <div><span className="text-rose-400 font-bold">[OTHER & AI]</span> Streamlit, Git/GitHub, Postman, Prompt Engineering</div>
+                <div><span className="text-emerald-300 font-bold">[SOFT SKILLS]</span> Public Speaking, Event Planning, Team Collaboration</div>
               </div>
             </div>
           ),
@@ -177,7 +176,7 @@ export const InteractiveTerminal: React.FC<InteractiveTerminalProps> = ({
             type: 'success',
             content: (
               <div className="space-y-1">
-                <div className="text-emerald-400 font-bold">🎉 PERMISSION GRANTED: ACCESS LEVEL ROOT</div>
+                <div className="text-emerald-400 font-bold">🎉 ACCESS GRANTED</div>
                 <div>Dispatching to contact terminal... Direct email: {PERSONAL_INFO.email}</div>
               </div>
             ),
@@ -212,69 +211,23 @@ export const InteractiveTerminal: React.FC<InteractiveTerminalProps> = ({
           newLogs.push({
             id: `${newLogId}-err`,
             type: 'error',
-            content: "Usage: nav <overview|work|research|systems|experience|skills|about|contact>",
+            content: "Usage: nav <work|skills|experience|about|contact>",
           });
-        }
-        break;
-
-      case 'drone-status':
-      case 'drone-hud':
-        newLogs.push({
-          id: `${newLogId}-out`,
-          type: 'output',
-          content: (
-            <div className="space-y-1 text-xs font-mono text-cyan-300">
-              <div className="font-bold">AEROSPACE DRONE FLEET TELEMETRY:</div>
-              <div>• DRONE-01 [SURVEILLANCE]: ALT 120m | BATTERY 84% | SPEED 14.2 m/s | YOLOv8: 4 TARGETS</div>
-              <div>• DRONE-02 [TACTICAL]: ALT 85m | BATTERY 91% | SPEED 18.0 m/s | WEBRTC: 30 FPS OK</div>
-              <div>• DRONE-03 [RECON]: ALT 140m | BATTERY 68% | SPEED 11.5 m/s | GEOFENCE: NORMAL</div>
-            </div>
-          ),
-        });
-        break;
-
-      case 'ai-infer':
-      case 'ask':
-        if (!args) {
-          newLogs.push({
-            id: `${newLogId}-err`,
-            type: 'error',
-            content: "Usage: ai-infer <your prompt> (e.g. 'ai-infer how does local LLM quantization work?')",
-          });
-        } else {
-          setIsInferring(true);
-          newLogs.push({
-            id: `${newLogId}-ai`,
-            type: 'ai',
-            content: (
-              <div className="space-y-1 text-xs font-mono">
-                <div className="text-violet-400 font-bold flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5 animate-spin" />
-                  <span>LOCAL_MODEL_INFERENCE :: Llama-3.1-8B-Q4_K_M (Ollama Engine)</span>
-                </div>
-                <p className="text-editorial-text leading-relaxed font-sans">
-                  "Synthesizing response for '{args}'... Local INT4 quantization maps weights to 4-bit discrete buckets, cutting memory from 16GB down to ~5.2GB with negligible perplexity shift, delivering 22 tokens/sec on local consumer hardware."
-                </p>
-                <div className="text-[10px] text-emerald-400">
-                  TTFT: 48ms · Throughput: 24.1 tok/s · VRAM: 5.2GB · Compression: 67.5%
-                </div>
-              </div>
-            ),
-          });
-          setTimeout(() => setIsInferring(false), 400);
         }
         break;
 
       case 'clear':
         setLogs([]);
+        setInputVal('');
         return;
 
       default:
         newLogs.push({
           id: `${newLogId}-err`,
           type: 'error',
-          content: `Command not recognized: '${cmd}'. Type 'help' for the command directory.`,
+          content: `Command not recognized: '${trimmed}'. Type 'help' for manual.`,
         });
+        break;
     }
 
     setLogs(newLogs);
@@ -306,112 +259,103 @@ export const InteractiveTerminal: React.FC<InteractiveTerminalProps> = ({
 
   return (
     <>
-      {/* Floating Bottom-Right Terminal Launch Button */}
-      <div className="fixed bottom-6 right-6 z-40">
+      {/* Floating Toggle Button */}
+      <div className="fixed bottom-5 right-5 z-40">
         <button
           onClick={() => {
-            soundFx.playBlip(800);
+            soundFx.playClick(800);
             setIsOpen(!isOpen);
           }}
-          className="px-4 py-2.5 rounded-full bg-[#0d0f18] hover:bg-[#151928] text-white border border-brand-blue/30 shadow-2xl shadow-brand-blue/20 transition-all hover:scale-105 active:scale-95 flex items-center gap-2 font-mono text-xs group"
-          title="Open TusharOS Interactive Terminal"
+          className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#0c0e17]/95 border border-white/15 text-white shadow-xl hover:border-brand-electric/50 transition-all group font-mono text-xs backdrop-blur-md"
         >
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           <Terminal className="w-4 h-4 text-brand-electric group-hover:rotate-12 transition-transform" />
-          <span className="font-bold tracking-wider hidden sm:inline text-brand-electric">
-            {isOpen ? 'CLOSE TERMINAL' : '>_ TusharOS REPL'}
-          </span>
+          <span>{isOpen ? 'Close CLI' : 'Developer CLI'}</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
         </button>
       </div>
 
-      {/* Terminal Modal / Drawer */}
+      {/* Terminal Modal Window */}
       {isOpen && (
         <div
           className={`fixed z-50 transition-all duration-300 ${
             isExpanded
-              ? 'inset-3 sm:inset-6 md:inset-10'
-              : 'bottom-20 right-3 sm:right-6 w-[calc(100vw-24px)] sm:w-[540px] md:w-[620px] h-[480px] max-h-[75vh]'
-          } rounded-3xl border border-brand-blue/30 bg-[#080a12]/95 backdrop-blur-xl shadow-2xl shadow-black/80 overflow-hidden font-mono flex flex-col`}
+              ? 'inset-4 sm:inset-10'
+              : 'bottom-20 right-5 w-[92vw] sm:w-[540px] h-[480px]'
+          }`}
         >
-          {/* Terminal Title Bar */}
-          <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-[#05060a]/90 text-xs">
-            <div className="flex items-center gap-2.5">
-              <div className="flex items-center gap-1.5">
+          <div className="w-full h-full bg-[#080a11]/98 border border-white/15 rounded-2xl shadow-2xl overflow-hidden flex flex-col font-mono text-xs backdrop-blur-2xl">
+            {/* Window Header */}
+            <div className="flex items-center justify-between px-4 py-3 bg-[#0c0e18] border-b border-white/10 select-none">
+              <div className="flex items-center gap-2">
                 <span className="w-3 h-3 rounded-full bg-rose-500/80 cursor-pointer" onClick={() => setIsOpen(false)} />
-                <span className="w-3 h-3 rounded-full bg-amber-500/80" />
+                <span className="w-3 h-3 rounded-full bg-amber-500/80 cursor-pointer" onClick={() => setInputVal('')} />
                 <span className="w-3 h-3 rounded-full bg-emerald-500/80 cursor-pointer" onClick={() => setIsExpanded(!isExpanded)} />
+                <span className="text-editorial-dim text-[11px] ml-2 flex items-center gap-1.5">
+                  <Terminal className="w-3 h-3 text-brand-electric" />
+                  sneha-gupta@developer-cli:~
+                </span>
               </div>
-              <span className="text-brand-electric font-bold tracking-wider text-[11px]">
-                tushar@ai-systems:~ (bash)
-              </span>
+
+              <div className="flex items-center gap-1.5">
+                <button
+                  onClick={() => setLogs([])}
+                  className="p-1 rounded text-editorial-dim hover:text-white hover:bg-white/5"
+                  title="Clear terminal"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  className="p-1 rounded text-editorial-dim hover:text-white hover:bg-white/5"
+                >
+                  {isExpanded ? <Minimize2 className="w-3.5 h-3.5" /> : <Maximize2 className="w-3.5 h-3.5" />}
+                </button>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="p-1 rounded text-editorial-dim hover:text-white hover:bg-white/5"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </div>
             </div>
 
-            <div className="flex items-center gap-2 text-editorial-dim">
+            {/* Output Logs Body */}
+            <div className="flex-1 p-4 overflow-y-auto space-y-2.5 selection:bg-brand-electric/30">
+              {logs.map((log) => (
+                <div key={log.id} className="leading-relaxed">
+                  {log.type === 'input' ? (
+                    <div className="text-brand-electric font-semibold">{log.content}</div>
+                  ) : log.type === 'error' ? (
+                    <div className="text-rose-400">{log.content}</div>
+                  ) : log.type === 'success' ? (
+                    <div className="text-emerald-400 font-semibold">{log.content}</div>
+                  ) : (
+                    <div className="text-editorial-muted">{log.content}</div>
+                  )}
+                </div>
+              ))}
+              <div ref={terminalEndRef} />
+            </div>
+
+            {/* Input Footer Bar */}
+            <div className="p-3 border-t border-white/10 bg-[#06080e] flex items-center gap-2">
+              <span className="text-brand-electric font-bold">$</span>
+              <input
+                ref={inputRef}
+                type="text"
+                value={inputVal}
+                onChange={(e) => setInputVal(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder="Type 'help', 'projects', 'skills', or 'sudo hire'..."
+                className="w-full bg-transparent text-white placeholder:text-editorial-dim/50 focus:outline-none text-xs font-mono"
+              />
               <button
-                onClick={() => setLogs([])}
-                className="p-1 hover:text-white transition-colors"
-                title="Clear Logs"
+                onClick={() => executeCommand(inputVal)}
+                className="p-1.5 rounded-lg bg-brand-blue/80 hover:bg-brand-blue text-white"
               >
-                <Trash2 className="w-3.5 h-3.5" />
-              </button>
-              <button
-                onClick={() => setIsExpanded(!isExpanded)}
-                className="p-1 hover:text-white transition-colors"
-                title={isExpanded ? 'Minimize' : 'Maximize'}
-              >
-                {isExpanded ? <Minimize2 className="w-3.5 h-3.5" /> : <Maximize2 className="w-3.5 h-3.5" />}
-              </button>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="p-1 hover:text-white transition-colors"
-                title="Close"
-              >
-                <X className="w-4 h-4" />
+                <Send className="w-3.5 h-3.5" />
               </button>
             </div>
-          </div>
-
-          {/* Terminal Output Area */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-3 font-mono text-xs">
-            {logs.map((log) => (
-              <div
-                key={log.id}
-                className={`${
-                  log.type === 'input'
-                    ? 'text-brand-electric font-bold'
-                    : log.type === 'error'
-                    ? 'text-rose-400'
-                    : log.type === 'success'
-                    ? 'text-emerald-300'
-                    : 'text-editorial-text'
-                } leading-relaxed`}
-              >
-                {log.content}
-              </div>
-            ))}
-            <div ref={terminalEndRef} />
-          </div>
-
-          {/* Command Prompt Input Bar */}
-          <div className="p-3 border-t border-white/10 bg-[#05060a]/90 flex items-center gap-2">
-            <span className="text-emerald-400 font-bold text-xs">tushar@sys:~$</span>
-            <input
-              ref={inputRef}
-              type="text"
-              value={inputVal}
-              onChange={(e) => setInputVal(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="type 'help', 'projects', 'sudo hire'..."
-              className="flex-1 bg-transparent text-xs text-white placeholder:text-editorial-dim focus:outline-none font-mono"
-            />
-            <button
-              onClick={() => executeCommand(inputVal)}
-              disabled={isInferring || !inputVal.trim()}
-              className="p-1.5 rounded-lg bg-brand-blue/20 hover:bg-brand-blue text-brand-electric hover:text-white transition-all disabled:opacity-30"
-              title="Run Command"
-            >
-              <Send className="w-3.5 h-3.5" />
-            </button>
           </div>
         </div>
       )}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TECHNICAL_SKILLS } from '../../data/portfolioData';
-import { Code, Terminal, Cpu, Database, Wrench, Sparkles, Search, Layers, HeartHandshake } from 'lucide-react';
+import { Code, Terminal, Cpu, Database, Wrench, Search, Layers, HeartHandshake } from 'lucide-react';
 import { SkillLogo } from '../ui/SkillLogo';
 import { soundFx } from '../../utils/audio';
 import { FadeUp, StaggerContainer, StaggerItem, SlideIn, FloatCard } from '../ui/Animations';
@@ -12,11 +12,10 @@ export const TechnicalSkills: React.FC = () => {
   const categories = [
     { id: 'all',        label: 'All',                icon: <Layers className="w-3.5 h-3.5" /> },
     { id: 'languages',  label: 'Languages',           icon: <Code className="w-3.5 h-3.5" /> },
-    { id: 'frameworks', label: 'Frameworks & ML',     icon: <Cpu className="w-3.5 h-3.5" /> },
-    { id: 'tools',      label: 'Tools & Cloud',       icon: <Wrench className="w-3.5 h-3.5" /> },
-    { id: 'concepts',   label: 'Architecture',        icon: <Terminal className="w-3.5 h-3.5" /> },
-    { id: 'databases',  label: 'Databases & Infra',   icon: <Database className="w-3.5 h-3.5" /> },
-    { id: 'aiTools',    label: 'AI tooling',          icon: <Sparkles className="w-3.5 h-3.5" /> },
+    { id: 'frontend',   label: 'Frontend',            icon: <Cpu className="w-3.5 h-3.5" /> },
+    { id: 'backend',    label: 'Backend',             icon: <Terminal className="w-3.5 h-3.5" /> },
+    { id: 'databases',  label: 'Databases',           icon: <Database className="w-3.5 h-3.5" /> },
+    { id: 'other',      label: 'Tools & AI',          icon: <Wrench className="w-3.5 h-3.5" /> },
   ];
 
   const SkillCard: React.FC<{ name: string; desc: string; level?: string; accent?: boolean }> = ({
@@ -86,7 +85,7 @@ export const TechnicalSkills: React.FC = () => {
             </p>
             <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">Technical skills</h2>
             <p className="text-base text-editorial-muted leading-relaxed">
-              A structured map across languages, frameworks, cloud, and ML runtimes.
+              Full-stack proficiencies across languages, frontend, backend APIs, databases, and AI tooling.
             </p>
           </div>
 
@@ -97,7 +96,7 @@ export const TechnicalSkills: React.FC = () => {
               type="text"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              placeholder="Search e.g. FastAPI…"
+              placeholder="Search e.g. React, Supabase…"
               className="w-full bg-white/[0.025] border border-white/8 rounded-lg pl-9 pr-3.5 py-2 text-white placeholder:text-editorial-dim focus:outline-none focus:border-brand-electric/50 transition-colors"
             />
           </div>
@@ -131,27 +130,24 @@ export const TechnicalSkills: React.FC = () => {
           {(activeCategory === 'all' || activeCategory === 'languages') && (
             <SkillGroup title="Languages" icon={<Code className="w-3.5 h-3.5" />} items={TECHNICAL_SKILLS.languages} />
           )}
-          {(activeCategory === 'all' || activeCategory === 'frameworks') && (
-            <SkillGroup title="Frameworks & machine learning" icon={<Cpu className="w-3.5 h-3.5" />} items={TECHNICAL_SKILLS.frameworksAndLibraries} />
+          {(activeCategory === 'all' || activeCategory === 'frontend') && (
+            <SkillGroup title="Frontend Development" icon={<Cpu className="w-3.5 h-3.5" />} items={TECHNICAL_SKILLS.frameworksAndLibraries} />
           )}
-          {(activeCategory === 'all' || activeCategory === 'tools') && (
-            <SkillGroup title="Cloud platforms, DevOps & tools" icon={<Wrench className="w-3.5 h-3.5" />} items={TECHNICAL_SKILLS.toolsAndPlatforms} />
-          )}
-          {(activeCategory === 'all' || activeCategory === 'concepts') && (
-            <SkillGroup title="Architecture & concepts" icon={<Terminal className="w-3.5 h-3.5" />} items={TECHNICAL_SKILLS.conceptsAndPractices} />
+          {(activeCategory === 'all' || activeCategory === 'backend') && (
+            <SkillGroup title="Backend & REST APIs" icon={<Terminal className="w-3.5 h-3.5" />} items={TECHNICAL_SKILLS.conceptsAndPractices} />
           )}
           {(activeCategory === 'all' || activeCategory === 'databases') && (
-            <SkillGroup title="Databases & infrastructure" icon={<Database className="w-3.5 h-3.5" />} items={TECHNICAL_SKILLS.databasesAndInfrastructure} />
+            <SkillGroup title="Databases" icon={<Database className="w-3.5 h-3.5" />} items={TECHNICAL_SKILLS.databasesAndInfrastructure} />
           )}
-          {(activeCategory === 'all' || activeCategory === 'aiTools') && (
-            <SkillGroup title="AI runtimes & open models" icon={<Sparkles className="w-3.5 h-3.5" />} items={TECHNICAL_SKILLS.aiTools} accent />
+          {(activeCategory === 'all' || activeCategory === 'other') && (
+            <SkillGroup title="Other Tools & Prompt Engineering" icon={<Wrench className="w-3.5 h-3.5" />} items={TECHNICAL_SKILLS.toolsAndPlatforms} accent />
           )}
 
-          {/* Soft skills — clean chip row */}
+          {/* Soft skills */}
           <FadeUp>
             <div className="p-5 sm:p-6 rounded-2xl bg-white/[0.02] border border-white/6 space-y-3">
               <p className="text-xs text-editorial-dim flex items-center gap-1.5">
-                <HeartHandshake className="w-3.5 h-3.5 text-emerald-400" /> Collaboration & soft skills
+                <HeartHandshake className="w-3.5 h-3.5 text-emerald-400" /> Also good at (Soft Skills & Leadership)
               </p>
               <StaggerContainer className="flex flex-wrap gap-2" staggerDelay={0.03}>
                 {TECHNICAL_SKILLS.softSkills.map(skill => (

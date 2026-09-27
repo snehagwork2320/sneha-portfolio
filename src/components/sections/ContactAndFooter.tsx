@@ -40,7 +40,7 @@ export const ContactAndFooter: React.FC = () => {
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);
-      window.location.href = `mailto:${PERSONAL_INFO.email}?subject=Project / Collaboration Inquiry from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(formData.message + '\n\nSender Email: ' + formData.email)}`;
+      window.location.href = `mailto:${PERSONAL_INFO.email}?subject=Developer Role / Opportunity Inquiry from ${encodeURIComponent(formData.name)}&body=${encodeURIComponent(formData.message + '\n\nSender Email: ' + formData.email)}`;
     }, 600);
   };
 
@@ -56,12 +56,12 @@ export const ContactAndFooter: React.FC = () => {
             </p>
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight">
-              Have a problem<br />
-              <span className="text-brand-electric">worth solving?</span>
+              Looking for a<br />
+              <span className="text-brand-electric">developer role?</span>
             </h2>
 
             <p className="text-base text-editorial-muted leading-relaxed font-light">
-              Always open to discussing new opportunities, engineering challenges, AI systems, and open-source collaborations.
+              Looking for a developer role where I can keep learning while contributing real work across full-stack applications and software engineering.
             </p>
 
             {/* Direct Contact Cards */}
@@ -76,7 +76,7 @@ export const ContactAndFooter: React.FC = () => {
                     <Mail className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="text-xs text-editorial-dim block">Email</span>
+                    <span className="text-xs text-editorial-dim block font-mono">Email</span>
                     <span className="text-white font-medium group-hover:text-brand-electric transition-colors">
                       {PERSONAL_INFO.email}
                     </span>
@@ -86,7 +86,7 @@ export const ContactAndFooter: React.FC = () => {
                 <div className="flex items-center gap-1">
                   <button
                     onClick={handleCopyEmail}
-                    className="px-2.5 py-1.5 rounded-md bg-white/5 hover:bg-white/10 text-editorial-muted hover:text-white transition-colors flex items-center gap-1 text-xs"
+                    className="px-2.5 py-1.5 rounded-md bg-white/5 hover:bg-white/10 text-editorial-muted hover:text-white transition-colors flex items-center gap-1 text-xs font-mono"
                     title="Copy email address"
                   >
                     {copiedEmail ? (
@@ -116,7 +116,7 @@ export const ContactAndFooter: React.FC = () => {
                     <Phone className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="text-xs text-editorial-dim block">Phone / WhatsApp</span>
+                    <span className="text-xs text-editorial-dim block font-mono">Phone / Call</span>
                     <span className="text-white font-medium group-hover:text-brand-electric transition-colors">
                       {PERSONAL_INFO.phone}
                     </span>
@@ -130,14 +130,14 @@ export const ContactAndFooter: React.FC = () => {
                   <MapPin className="w-4 h-4 text-brand-blue" />
                 </div>
                 <div>
-                  <span className="text-xs text-editorial-dim block">Location</span>
+                  <span className="text-xs text-editorial-dim block font-mono">Location</span>
                   <span className="text-white font-medium">{PERSONAL_INFO.location}</span>
                 </div>
               </div>
             </div>
 
             {/* Social Links */}
-            <div className="flex items-center gap-2.5 pt-1 text-xs font-medium">
+            <div className="flex items-center gap-2.5 pt-1 text-xs font-medium font-mono">
               <a
                 href={PERSONAL_INFO.github}
                 target="_blank"
@@ -167,7 +167,7 @@ export const ContactAndFooter: React.FC = () => {
             <div className="p-6 sm:p-8 rounded-2xl bg-white/[0.02] border border-white/8 space-y-6">
               <div className="border-b border-white/6 pb-3 text-xs flex items-center justify-between text-editorial-dim">
                 <span className="text-white font-medium">Send a direct message</span>
-                <span>Replies within 24h</span>
+                <span className="font-mono">Replies within 24h</span>
               </div>
 
               {isSubmitted ? (
@@ -189,7 +189,7 @@ export const ContactAndFooter: React.FC = () => {
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="e.g. Alex Mercer"
+                      placeholder="e.g. Hiring Manager"
                       className="w-full bg-white/[0.02] border border-white/8 rounded-lg px-3.5 py-2.5 text-white placeholder:text-editorial-dim focus:outline-none focus:border-brand-electric transition-colors text-sm"
                     />
                   </div>
@@ -203,21 +203,21 @@ export const ContactAndFooter: React.FC = () => {
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="e.g. alex@company.com"
+                      placeholder="e.g. recruiter@company.com"
                       className="w-full bg-white/[0.02] border border-white/8 rounded-lg px-3.5 py-2.5 text-white placeholder:text-editorial-dim focus:outline-none focus:border-brand-electric transition-colors text-sm"
                     />
                   </div>
 
                   <div>
                     <label className="text-editorial-dim block mb-1.5 font-medium">
-                      Project or message
+                      Project or opportunity details
                     </label>
                     <textarea
                       required
                       rows={4}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      placeholder="Describe what you'd like to discuss or collaborate on..."
+                      placeholder="Describe the opportunity or project..."
                       className="w-full bg-white/[0.02] border border-white/8 rounded-lg px-3.5 py-2.5 text-white placeholder:text-editorial-dim focus:outline-none focus:border-brand-electric transition-colors resize-none text-sm"
                     />
                   </div>
@@ -239,15 +239,15 @@ export const ContactAndFooter: React.FC = () => {
         {/* Global Footer */}
         <div className="border-t border-white/8 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-editorial-dim">
           <div className="space-y-0.5 text-center md:text-left">
-            <div className="font-semibold text-white text-sm">
+            <div className="font-bold text-white text-sm">
               {PERSONAL_INFO.name}
             </div>
             <div className="text-editorial-dim">
-              Software Engineer & AI Researcher · {PERSONAL_INFO.location}
+              Electronics & Computer Science Undergraduate · Full-Stack Developer · {PERSONAL_INFO.location}
             </div>
           </div>
 
-          <div className="flex items-center gap-3 text-editorial-dim">
+          <div className="flex items-center gap-3 text-editorial-dim font-mono">
             <a href={PERSONAL_INFO.github} target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
               GitHub
             </a>

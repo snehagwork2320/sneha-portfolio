@@ -40,11 +40,9 @@ export const Navigation: React.FC<NavigationProps> = ({
   const navLinks = [
     { id: 'overview', label: 'Home' },
     { id: 'work',     label: 'Work' },
-    { id: 'systems',  label: 'Systems' },
-    { id: 'research', label: 'Research' },
-    { id: 'experience', label: 'Experience' },
+    { id: 'experience', label: 'Leadership & Ops' },
     { id: 'skills',   label: 'Skills' },
-    { id: 'about',    label: 'About' },
+    { id: 'about',    label: 'Education & About' },
     { id: 'contact',  label: 'Contact' },
   ];
 
@@ -72,14 +70,14 @@ export const Navigation: React.FC<NavigationProps> = ({
               onClick={() => handleLinkClick('overview')}
               className="flex items-center gap-2.5 group"
             >
-              <span className="font-sans font-semibold text-base text-white group-hover:text-brand-electric transition-colors tracking-tight">
+              <span className="font-sans font-bold text-base text-white group-hover:text-brand-electric transition-colors tracking-tight">
                 {PERSONAL_INFO.name}
               </span>
             </button>
 
             {/* Availability pill */}
             <div className="hidden xl:flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-white/10 font-mono text-[10px] text-editorial-dim">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400/80" />
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400/80 animate-pulse" />
               <span>Open to work</span>
             </div>
           </div>
@@ -170,7 +168,7 @@ export const Navigation: React.FC<NavigationProps> = ({
           <div className="lg:hidden bg-[#0a0a0f]/98 backdrop-blur-xl border-t border-white/8 px-6 py-5 flex flex-col gap-1 animate-in slide-in-from-top-3 duration-200">
             <div className="flex items-center justify-between pb-3 mb-1 border-b border-white/8 text-xs text-editorial-dim">
               <div className="flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400/80" />
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400/80 animate-pulse" />
                 <span>{PERSONAL_INFO.status}</span>
               </div>
               {onToggleTheme && (

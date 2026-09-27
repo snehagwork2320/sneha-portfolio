@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Search, X, FolderGit2, FlaskConical, Code, Send, FileText, ArrowRight } from 'lucide-react';
-import { PROJECTS, RESEARCH_TOPICS } from '../../data/portfolioData';
+import { Search, X, FolderGit2, Code, FileText, ArrowRight } from 'lucide-react';
+import { PROJECTS } from '../../data/portfolioData';
 import { soundFx } from '../../utils/audio';
 
 interface CommandMenuProps {
   isOpen: boolean;
   onClose: () => void;
   onSelectProject: (projectId: string) => void;
-  onSelectResearch: (topicId: string) => void;
+  onSelectResearch?: (topicId: string) => void;
   onOpenResume: () => void;
   onSelectSection?: (sectionId: string) => void;
 }
@@ -16,7 +16,6 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
   isOpen,
   onClose,
   onSelectProject,
-  onSelectResearch,
   onOpenResume,
   onSelectSection,
 }) => {
@@ -47,12 +46,6 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
       p.technologies.some((t) => t.toLowerCase().includes(query.toLowerCase()))
   );
 
-  const filteredResearch = RESEARCH_TOPICS.filter(
-    (r) =>
-      r.title.toLowerCase().includes(query.toLowerCase()) ||
-      r.category.toLowerCase().includes(query.toLowerCase())
-  );
-
   const handleNav = (sectionId: string) => {
     soundFx.playClick(600);
     onClose();
@@ -77,7 +70,7 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
             autoFocus
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search projects, research notes, systems, skills, or experience..."
+            placeholder="Search projects, skills, education, or experience..."
             className="w-full bg-transparent text-sm text-white placeholder:text-editorial-dim focus:outline-none font-sans"
           />
           {query && (
@@ -98,98 +91,62 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
           {/* Quick Actions */}
           <div>
             <div className="text-[10px] text-editorial-dim uppercase tracking-wider mb-2">QUICK ACTIONS</div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            <div className="space-y-1">
               <button
                 onClick={() => {
-                  soundFx.playBlip(750);
                   onClose();
                   onOpenResume();
                 }}
-                className="p-2.5 rounded-lg bg-white/[0.03] hover:bg-brand-blue/15 hover:border-brand-blue/30 border border-white/5 text-left transition-colors flex items-center gap-2 group"
+                className="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-white/5 text-editorial-muted hover:text-white transition-colors group"
               >
-                <FileText className="w-3.5 h-3.5 text-brand-electric group-hover:scale-110 transition-transform" />
-                <span className="text-white">View Resume</span>
-              </button>
-
-              <button
-                onClick={() => handleNav('systems')}
-                className="p-2.5 rounded-lg bg-white/[0.03] hover:bg-brand-blue/15 hover:border-brand-blue/30 border border-white/5 text-left transition-colors flex items-center gap-2 group"
-              >
-                <Code className="w-3.5 h-3.5 text-cyan-400 group-hover:scale-110 transition-transform" />
-                <span className="text-white">Systems Lab</span>
+                <div className="flex items-center gap-2.5">
+                  <FileText className="w-4 h-4 text-brand-electric" />
+                  <span className="font-sans font-medium text-sm text-white">View Curriculum Vitae (Résumé)</span>
+                </div>
+                <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
               </button>
 
               <button
                 onClick={() => handleNav('contact')}
-                className="p-2.5 rounded-lg bg-white/[0.03] hover:bg-brand-blue/15 hover:border-brand-blue/30 border border-white/5 text-left transition-colors flex items-center gap-2 group"
+                className="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-white/5 text-editorial-muted hover:text-white transition-colors group"
               >
-                <Send className="w-3.5 h-3.5 text-emerald-400 group-hover:scale-110 transition-transform" />
-                <span className="text-white">Contact Tushar</span>
+                <div className="flex items-center gap-2.5">
+                  <Code className="w-4 h-4 text-emerald-400" />
+                  <span className="font-sans font-medium text-sm text-white">Contact & Opportunity Inquiry</span>
+                </div>
+                <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
               </button>
             </div>
           </div>
 
-          {/* Projects Category */}
+          {/* Featured Projects */}
           {filteredProjects.length > 0 && (
             <div>
-              <div className="text-[10px] text-editorial-dim uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                <FolderGit2 className="w-3 h-3 text-brand-electric" />
-                <span>PROJECTS ({filteredProjects.length})</span>
+              <div className="text-[10px] text-editorial-dim uppercase tracking-wider mb-2">
+                PROJECTS ({filteredProjects.length})
               </div>
-              <div className="space-y-1.5">
-                {filteredProjects.map((project) => (
+              <div className="space-y-1">
+                {filteredProjects.map((proj) => (
                   <button
-                    key={project.id}
+                    key={proj.id}
                     onClick={() => {
-                      soundFx.playBlip(900);
                       onClose();
-                      onSelectProject(project.id);
+                      onSelectProject(proj.id);
                     }}
-                    className="w-full p-2.5 rounded-lg bg-white/[0.02] hover:bg-brand-blue/10 border border-white/5 hover:border-brand-blue/30 text-left transition-all flex items-center justify-between group"
+                    className="w-full flex items-center justify-between p-2.5 rounded-lg hover:bg-white/5 text-left transition-colors group"
                   >
-                    <div>
-                      <div className="font-bold text-white group-hover:text-brand-electric flex items-center gap-2">
-                        <span className="text-editorial-dim text-[10px]">{project.number}</span>
-                        <span>{project.title}</span>
-                      </div>
-                      <div className="text-[10px] text-editorial-muted font-sans mt-0.5">
-                        {project.category} · {project.technologies.slice(0, 3).join(', ')}
+                    <div className="flex items-start gap-2.5">
+                      <FolderGit2 className="w-4 h-4 text-brand-blue shrink-0 mt-0.5" />
+                      <div>
+                        <div className="font-sans font-semibold text-sm text-white group-hover:text-brand-electric transition-colors">
+                          {proj.title}
+                        </div>
+                        <div className="text-[11px] text-editorial-dim font-mono">
+                          {proj.category} · {proj.technologies.slice(0, 3).join(', ')}
+                        </div>
                       </div>
                     </div>
-                    <ArrowRight className="w-3.5 h-3.5 text-editorial-dim group-hover:text-brand-electric group-hover:translate-x-0.5 transition-all" />
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Research Notes Category */}
-          {filteredResearch.length > 0 && (
-            <div>
-              <div className="text-[10px] text-editorial-dim uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                <FlaskConical className="w-3 h-3 text-violet-400" />
-                <span>RESEARCH NOTES ({filteredResearch.length})</span>
-              </div>
-              <div className="space-y-1.5">
-                {filteredResearch.map((res) => (
-                  <button
-                    key={res.id}
-                    onClick={() => {
-                      soundFx.playBlip(900);
-                      onClose();
-                      onSelectResearch(res.id);
-                    }}
-                    className="w-full p-2.5 rounded-lg bg-white/[0.02] hover:bg-violet-500/10 border border-white/5 hover:border-violet-500/30 text-left transition-all flex items-center justify-between group"
-                  >
-                    <div>
-                      <div className="font-bold text-white group-hover:text-violet-300">
-                        {res.title}
-                      </div>
-                      <div className="text-[10px] text-editorial-dim font-sans line-clamp-1 mt-0.5">
-                        {res.question}
-                      </div>
-                    </div>
-                    <ArrowRight className="w-3.5 h-3.5 text-editorial-dim group-hover:text-violet-300 transition-all" />
+                    <ArrowRight className="w-4 h-4 text-editorial-dim group-hover:text-white opacity-0 group-hover:opacity-100 transition-opacity" />
                   </button>
                 ))}
               </div>
@@ -197,10 +154,10 @@ export const CommandMenu: React.FC<CommandMenuProps> = ({
           )}
         </div>
 
-        {/* Footer Navigation Tip */}
-        <div className="px-4 py-2.5 border-t border-white/10 bg-[#080a11] text-[10px] text-editorial-dim flex items-center justify-between">
-          <span>Use <strong>ESC</strong> to dismiss · Press <strong>ENTER</strong> to open</span>
-          <span className="text-brand-electric">TUSHAR GUPTA // PORTFOLIO SEARCH</span>
+        {/* Footer */}
+        <div className="px-4 py-2.5 border-t border-white/10 bg-[#080a11] flex items-center justify-between text-[11px] text-editorial-dim">
+          <span>Navigate with ⌘K / Esc</span>
+          <span className="text-brand-electric font-mono">SNEHA GUPTA PORTFOLIO</span>
         </div>
       </div>
     </div>

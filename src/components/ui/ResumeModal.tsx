@@ -1,6 +1,6 @@
 import React from 'react';
 import { X, Printer, ExternalLink, Mail, Phone, MapPin, CheckCircle } from 'lucide-react';
-import { PERSONAL_INFO, EXPERIENCES, EDUCATION, HACKATHONS, CERTIFICATIONS, TECHNICAL_SKILLS } from '../../data/portfolioData';
+import { PERSONAL_INFO, PROJECTS, EDUCATION_LIST, CERTIFICATIONS, TECHNICAL_SKILLS, EXPERIENCES } from '../../data/portfolioData';
 import { soundFx } from '../../utils/audio';
 
 interface ResumeModalProps {
@@ -22,8 +22,8 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
         {/* Modal Action Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-[#08090f] shrink-0 font-mono">
           <div className="flex items-center gap-2 text-xs text-brand-electric font-semibold">
-            <span className="w-2 h-2 rounded-full bg-emerald-400" />
-            <span>OFFICIAL CURRICULUM VITAE // TUSHAR GUPTA</span>
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span>CURRICULUM VITAE // SNEHA GUPTA</span>
           </div>
 
           <div className="flex items-center gap-2">
@@ -78,42 +78,99 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
             </div>
           </div>
 
+          {/* Professional Summary */}
+          <div>
+            <h2 className="text-xs font-mono font-bold tracking-widest text-brand-electric uppercase mb-2 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-brand-blue" /> PROFESSIONAL SUMMARY
+            </h2>
+            <p className="text-xs sm:text-sm text-editorial-muted leading-relaxed font-light p-4 rounded-xl bg-white/[0.02] border border-white/5">
+              {PERSONAL_INFO.summary}
+            </p>
+          </div>
+
+          {/* Technical Skills */}
+          <div>
+            <h2 className="text-xs font-mono font-bold tracking-widest text-brand-electric uppercase mb-3 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-brand-blue" /> TECHNICAL SKILLS
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div className="p-3 rounded-lg bg-white/[0.02] border border-white/5">
+                <span className="font-mono text-white text-[11px] font-bold block mb-1">Languages:</span>
+                <span className="text-editorial-muted">{TECHNICAL_SKILLS.languages.map((l) => l.name).join(', ')}</span>
+              </div>
+              <div className="p-3 rounded-lg bg-white/[0.02] border border-white/5">
+                <span className="font-mono text-white text-[11px] font-bold block mb-1">Frontend:</span>
+                <span className="text-editorial-muted">{TECHNICAL_SKILLS.frameworksAndLibraries.map((f) => f.name).join(', ')}</span>
+              </div>
+              <div className="p-3 rounded-lg bg-white/[0.02] border border-white/5">
+                <span className="font-mono text-white text-[11px] font-bold block mb-1">Backend & Databases:</span>
+                <span className="text-editorial-muted">{TECHNICAL_SKILLS.conceptsAndPractices.map((c) => c.name).concat(TECHNICAL_SKILLS.databasesAndInfrastructure.map((d) => d.name)).join(', ')}</span>
+              </div>
+              <div className="p-3 rounded-lg bg-white/[0.02] border border-white/5">
+                <span className="font-mono text-white text-[11px] font-bold block mb-1">Other & Soft Skills:</span>
+                <span className="text-editorial-muted">{TECHNICAL_SKILLS.toolsAndPlatforms.map((a) => a.name).concat(TECHNICAL_SKILLS.softSkills).join(', ')}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Projects */}
+          <div>
+            <h2 className="text-xs font-mono font-bold tracking-widest text-brand-electric uppercase mb-3 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-brand-blue" /> PROJECTS
+            </h2>
+            <div className="space-y-4">
+              {PROJECTS.map((proj) => (
+                <div key={proj.id} className="p-4 rounded-xl bg-white/[0.02] border border-white/5 space-y-2">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between">
+                    <h3 className="font-bold text-white text-sm sm:text-base">
+                      {proj.title}
+                    </h3>
+                    <span className="font-mono text-xs text-brand-electric font-medium">
+                      {proj.technologies.join(', ')}
+                    </span>
+                  </div>
+                  <ul className="space-y-1 text-xs text-editorial-muted list-disc list-inside leading-relaxed font-light">
+                    {proj.keyCapabilities.map((cap, i) => (
+                      <li key={i}>{cap}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* Education */}
           <div>
             <h2 className="text-xs font-mono font-bold tracking-widest text-brand-electric uppercase mb-3 flex items-center gap-2">
               <span className="w-1.5 h-1.5 bg-brand-blue" /> EDUCATION
             </h2>
-            <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between">
-                <div>
-                  <h3 className="font-bold text-white text-base font-display">
-                    {EDUCATION.degree} (CGPA: {EDUCATION.cgpa})
-                  </h3>
-                  <div className="text-xs text-editorial-muted mt-0.5">
-                    {EDUCATION.institution} · {EDUCATION.university}
+            <div className="space-y-3">
+              {EDUCATION_LIST.map((edu, idx) => (
+                <div key={idx} className="p-4 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col sm:flex-row sm:items-center justify-between">
+                  <div>
+                    <h3 className="font-bold text-white text-sm sm:text-base">
+                      {edu.institution}
+                    </h3>
+                    <div className="text-xs text-brand-electric mt-0.5">
+                      {edu.degree} · {edu.location}
+                    </div>
                   </div>
+                  <span className="font-mono text-xs text-editorial-dim mt-1 sm:mt-0 font-medium">
+                    {edu.period}
+                  </span>
                 </div>
-                <span className="font-mono text-xs text-brand-electric mt-1 sm:mt-0 font-medium">
-                  {EDUCATION.period}
-                </span>
-              </div>
-              <div className="mt-3 text-xs text-editorial-muted">
-                <span className="font-mono text-white text-[11px] block mb-1">Relevant Coursework:</span>
-                <p className="leading-relaxed">
-                  {EDUCATION.coursework.join(' · ')}
-                </p>
-              </div>
+              ))}
             </div>
           </div>
 
-          {/* Professional Experience */}
+          {/* Leadership & Campus Involvement */}
           <div>
             <h2 className="text-xs font-mono font-bold tracking-widest text-brand-electric uppercase mb-3 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 bg-brand-blue" /> INTERNSHIP & PROFESSIONAL EXPERIENCE
+              <span className="w-1.5 h-1.5 bg-brand-blue" /> LEADERSHIP & CAMPUS INVOLVEMENT
             </h2>
             <div className="space-y-4">
               {EXPERIENCES.map((exp) => (
-                <div key={exp.id} className="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                <div key={exp.id} className="p-4 rounded-xl bg-white/[0.02] border border-white/5 space-y-2">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between">
                     <div>
                       <h3 className="font-bold text-white text-sm sm:text-base">
@@ -126,80 +183,22 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                     </span>
                   </div>
 
-                  <ul className="mt-3 space-y-1.5 text-xs text-editorial-muted list-disc list-inside leading-relaxed">
+                  <ul className="mt-2 space-y-1.5 text-xs text-editorial-muted list-disc list-inside leading-relaxed font-light">
                     {exp.achievements.map((ach, i) => (
                       <li key={i}>{ach}</li>
                     ))}
                   </ul>
-
-                  {exp.impact.length > 0 && (
-                    <div className="mt-2.5 flex flex-wrap gap-2">
-                      {exp.impact.map((imp, i) => (
-                        <span key={i} className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">
-                          ✓ {imp}
-                        </span>
-                      ))}
-                    </div>
-                  )}
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Key Achievements & Hackathons */}
+          {/* Certifications & Achievements */}
           <div>
             <h2 className="text-xs font-mono font-bold tracking-widest text-brand-electric uppercase mb-3 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 bg-brand-blue" /> HACKATHONS & AWARDS (15+ NATIONAL PARTICIPATIONS)
+              <span className="w-1.5 h-1.5 bg-brand-blue" /> CERTIFICATIONS & ACHIEVEMENTS
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {HACKATHONS.filter((h) => h.isMajor).map((h, i) => (
-                <div key={i} className="p-3.5 rounded-xl bg-white/[0.02] border border-white/5">
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-white text-xs">{h.name}</span>
-                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-brand-blue/20 text-brand-electric border border-brand-blue/30">
-                      {h.award}
-                    </span>
-                  </div>
-                  <div className="text-[10px] text-editorial-dim font-mono mt-0.5">
-                    {h.location} · {h.teamsCount}
-                  </div>
-                  <p className="text-xs text-editorial-muted mt-2">{h.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Technical Skills */}
-          <div>
-            <h2 className="text-xs font-mono font-bold tracking-widest text-brand-electric uppercase mb-3 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 bg-brand-blue" /> TECHNICAL PROFICIENCIES
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-              <div className="p-3 rounded-lg bg-white/[0.02] border border-white/5">
-                <span className="font-mono text-white text-[11px] font-bold block mb-1">Languages:</span>
-                <span className="text-editorial-muted">{TECHNICAL_SKILLS.languages.map((l) => `${l.name}${l.level === 'Basic' ? ' (Basic)' : ''}`).join(', ')}</span>
-              </div>
-              <div className="p-3 rounded-lg bg-white/[0.02] border border-white/5">
-                <span className="font-mono text-white text-[11px] font-bold block mb-1">Frameworks & Libraries:</span>
-                <span className="text-editorial-muted">{TECHNICAL_SKILLS.frameworksAndLibraries.map((f) => f.name).join(', ')}</span>
-              </div>
-              <div className="p-3 rounded-lg bg-white/[0.02] border border-white/5">
-                <span className="font-mono text-white text-[11px] font-bold block mb-1">Databases & Infrastructure:</span>
-                <span className="text-editorial-muted">{TECHNICAL_SKILLS.databasesAndInfrastructure.map((d) => d.name).join(', ')}</span>
-              </div>
-              <div className="p-3 rounded-lg bg-white/[0.02] border border-white/5">
-                <span className="font-mono text-white text-[11px] font-bold block mb-1">AI & Tooling:</span>
-                <span className="text-editorial-muted">{TECHNICAL_SKILLS.aiTools.map((a) => a.name).join(', ')}</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Certifications */}
-          <div>
-            <h2 className="text-xs font-mono font-bold tracking-widest text-brand-electric uppercase mb-3 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 bg-brand-blue" /> CERTIFICATIONS & CREDENTIALS
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-mono">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">
               {CERTIFICATIONS.map((cert, idx) => (
                 <div key={idx} className="p-2.5 rounded-lg bg-white/[0.02] border border-white/5 flex items-center gap-2">
                   <CheckCircle className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
@@ -212,8 +211,8 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
 
         {/* Modal Bottom Footer */}
         <div className="px-6 py-3 border-t border-white/10 bg-[#08090f] flex items-center justify-between text-xs font-mono text-editorial-dim">
-          <span>SOURCE OF TRUTH VERIFIED · TCET UNIVERSITY OF MUMBAI</span>
-          <span className="text-brand-electric">TUSHAR GUPTA // RESUME</span>
+          <span>CURRICULUM VITAE // SHREE L. R. TIWARI COLLEGE OF ENGINEERING</span>
+          <span className="text-brand-electric">SNEHA GUPTA</span>
         </div>
       </div>
     </div>

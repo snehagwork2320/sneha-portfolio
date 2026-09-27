@@ -6,11 +6,11 @@ interface LoadingSequenceProps {
 }
 
 const SYSTEMS_KEYWORDS = [
-  'SYSTEMS',
-  'AI',
-  'VISION',
-  'CLOUD',
-  'REAL-TIME'
+  'REACT.JS',
+  'NODE.JS',
+  'TYPESCRIPT',
+  'FULL-STACK',
+  'SUPABASE'
 ];
 
 export const LoadingSequence: React.FC<LoadingSequenceProps> = ({ onComplete }) => {
@@ -20,12 +20,12 @@ export const LoadingSequence: React.FC<LoadingSequenceProps> = ({ onComplete }) 
   useEffect(() => {
     // Progressive rapid sequence under 1.2 seconds total
     const timers = [
-      setTimeout(() => setCurrentStep(1), 180),  // SYSTEMS
-      setTimeout(() => setCurrentStep(2), 340),  // AI
-      setTimeout(() => setCurrentStep(3), 500),  // VISION
-      setTimeout(() => setCurrentStep(4), 660),  // CLOUD
-      setTimeout(() => setCurrentStep(5), 820),  // REAL-TIME
-      setTimeout(() => setCurrentStep(6), 1020), // TUSHAR GUPTA
+      setTimeout(() => setCurrentStep(1), 180),  // REACT.JS
+      setTimeout(() => setCurrentStep(2), 340),  // NODE.JS
+      setTimeout(() => setCurrentStep(3), 500),  // TYPESCRIPT
+      setTimeout(() => setCurrentStep(4), 660),  // FULL-STACK
+      setTimeout(() => setCurrentStep(5), 820),  // SUPABASE
+      setTimeout(() => setCurrentStep(6), 1020), // SNEHA GUPTA
       setTimeout(() => {
         setIsFinished(true);
         setTimeout(onComplete, 250);
@@ -50,7 +50,7 @@ export const LoadingSequence: React.FC<LoadingSequenceProps> = ({ onComplete }) 
             {/* Initializing Header */}
             <div className="text-[11px] text-editorial-dim tracking-widest uppercase mb-6 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-electric animate-ping" />
-              <span>INITIALIZING / TUSHAR.GUPTA</span>
+              <span>INITIALIZING / SNEHA.GUPTA</span>
             </div>
 
             {/* Keyword Pipeline Sequence */}
@@ -85,7 +85,7 @@ export const LoadingSequence: React.FC<LoadingSequenceProps> = ({ onComplete }) 
                   transition={{ duration: 0.2 }}
                   className="text-lg sm:text-xl font-display font-bold tracking-widest text-white flex items-center gap-2"
                 >
-                  <span className="text-brand-electric">/</span> TUSHAR GUPTA
+                  <span className="text-brand-electric">/</span> SNEHA GUPTA
                 </motion.div>
               )}
             </div>

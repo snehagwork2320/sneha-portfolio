@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { PERSONAL_INFO } from '../../data/portfolioData';
-import { Sparkles, ShieldCheck, Terminal, User, Camera } from 'lucide-react';
+import { Sparkles, ShieldCheck, Terminal, User, Code } from 'lucide-react';
 
 interface HeroPortraitProps {
   imageSrc?: string;
 }
 
 export const HeroPortrait: React.FC<HeroPortraitProps> = ({
-  imageSrc = '/tushar.jpg',
+  imageSrc = '/sneha.jpg',
 }) => {
   const [imageError, setImageError] = useState<boolean>(false);
   const [mousePos, setMousePos] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
@@ -42,10 +42,10 @@ export const HeroPortrait: React.FC<HeroPortraitProps> = ({
         <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10 text-[11px]">
           <div className="flex items-center gap-1.5 text-brand-electric font-bold">
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-            <span>OPERATOR_ID // {PERSONAL_INFO.name}</span>
+            <span>DEVELOPER // {PERSONAL_INFO.name}</span>
           </div>
           <span className="text-[10px] text-editorial-dim px-2 py-0.5 rounded bg-white/5 border border-white/5">
-            TCET // IT'27
+            SLRTCE // ECS
           </span>
         </div>
 
@@ -75,13 +75,13 @@ export const HeroPortrait: React.FC<HeroPortraitProps> = ({
                   {PERSONAL_INFO.name}
                 </h4>
                 <p className="text-[11px] text-editorial-muted font-mono">
-                  AI Engineer & Full-Stack Developer
+                  Full-Stack Developer
                 </p>
               </div>
 
               <div className="p-2.5 rounded-xl bg-white/[0.04] border border-dashed border-white/15 text-[10px] text-editorial-dim max-w-[240px] leading-relaxed">
-                <Camera className="w-3.5 h-3.5 mx-auto mb-1 text-brand-electric" />
-                Place your photo in <span className="text-white font-bold font-mono">public/tushar.jpg</span> to display here automatically.
+                <Code className="w-3.5 h-3.5 mx-auto mb-1 text-brand-electric" />
+                Electronics & Computer Science Undergraduate
               </div>
             </div>
           )}
@@ -96,7 +96,7 @@ export const HeroPortrait: React.FC<HeroPortraitProps> = ({
           <div className="absolute bottom-3 left-3 right-3 p-2.5 rounded-xl bg-black/80 backdrop-blur-md border border-white/10 flex items-center justify-between text-[10px] z-10">
             <div className="flex items-center gap-1.5 text-emerald-400 font-bold">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-              <span>STATUS: AVAILABLE</span>
+              <span>STATUS: OPEN TO WORK</span>
             </div>
             <span className="text-editorial-dim">MUMBAI, IN</span>
           </div>
@@ -106,11 +106,11 @@ export const HeroPortrait: React.FC<HeroPortraitProps> = ({
         <div className="mt-3.5 pt-3 border-t border-white/10 flex items-center justify-between text-[10px] text-editorial-dim">
           <div className="flex items-center gap-1">
             <Terminal className="w-3 h-3 text-brand-electric" />
-            <span>AI / ML & FULL-STACK</span>
+            <span>REACT · NODE · TYPESCRIPT</span>
           </div>
           <div className="flex items-center gap-1 text-brand-electric">
             <Sparkles className="w-3 h-3" />
-            <span>CGPA {PERSONAL_INFO.cgpa}</span>
+            <span>FULL-STACK</span>
           </div>
         </div>
       </div>
